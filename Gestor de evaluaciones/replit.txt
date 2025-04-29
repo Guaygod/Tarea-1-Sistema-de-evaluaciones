@@ -1,0 +1,1 @@
+run = "g++ -std=c++17 -o evaluacion Pregunta.cpp BancoPreguntas.cpp Menu.cpp main.cpp && ./evaluacion"
