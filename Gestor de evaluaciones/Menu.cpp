@@ -19,7 +19,6 @@ bool Menu::leerEntradaEntera(int& valor) const {
 
 string Menu::leerEntradaTexto() const {
     string texto;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, texto);
     return texto;
 }
@@ -51,13 +50,26 @@ void Menu::mostrar() {
             cout << "Ingrese tiempo estimado (minutos): ";
             int tiempo;
             if (!leerEntradaEntera(tiempo)) {
-                cout << "Tiempo inválido.\n";
+                cout << "Tiempo inválido. Debe ser un número entero.\n";
+                break;
+            }
+            Pregunta temp;
+            if (!temp.setEnunciado(enunciado)) {
+                cout << "Error al agregar pregunta: El enunciado no puede estar vacío.\n";
+                break;
+            }
+            if (!temp.setNivel(nivel)) {
+                cout << "Error al agregar pregunta: El nivel no puede estar vacío.\n";
+                break;
+            }
+            if (!temp.setTiempo(tiempo)) {
+                cout << "Error al agregar pregunta: El tiempo debe ser mayor que 0.\n";
                 break;
             }
             if (banco.agregarPregunta(enunciado, nivel, tiempo)) {
                 cout << "Pregunta agregada.\n";
             } else {
-                cout << "Error al agregar pregunta.\n";
+                cout << "Error al agregar pregunta: Verifique los datos ingresados.\n";
             }
             break;
         }
